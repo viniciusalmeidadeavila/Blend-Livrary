@@ -1,0 +1,5 @@
+package view;
+
+public class BlendLivrary {
+    // CLASSE ONDE VAI SER O FRONT END DO TRABALHO FEITO NO CONSOLE. EM DESENVOLVIMENTO.
+}

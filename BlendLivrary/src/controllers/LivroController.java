@@ -1,0 +1,5 @@
+package controllers;
+
+public class LivroController {
+    // CLASSE CONTROLLER DO LIVRO, PARA FAZER O ENCONTRO ENTRE O VIEW E O REPOSITORY. EM DESENVOLVIMENTO
+}
