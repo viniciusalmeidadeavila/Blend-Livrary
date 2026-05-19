@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class ConexaoBanco {
 
-    private static final Dotenv dotenv = Dotenv.load();
+    private static final Dotenv dotenv = Dotenv.configure().directory("./BlendLivrary").load();
 
     // Busca os valores diretamente do arquivo .env
     private static final String URL = dotenv.get("DB_URL");
