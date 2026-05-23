@@ -24,12 +24,4 @@ public class ConexaoBanco {
         }
         return conexao;
     }
-
-    public static void main(String[] args) {
-        System.out.println("Iniciando teste de conexão via .env...");
-        Connection con = ConexaoBanco.conectar();
-        if (con != null) {
-            try { con.close(); } catch (SQLException e) { e.printStackTrace(); }
-        }
-    }
 }
