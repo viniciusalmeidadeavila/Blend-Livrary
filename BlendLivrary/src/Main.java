@@ -1,7 +1,5 @@
-import view.BlendLivrary;
-
 class Main{
     static void main() {
-
+        System.out.println("a");
     }
 }

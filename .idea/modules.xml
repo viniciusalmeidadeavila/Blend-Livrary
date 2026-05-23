@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Blend-Livrary.iml" filepath="$PROJECT_DIR$/.idea/Blend-Livrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BlendLivrary/BlendLivrary.iml" filepath="$PROJECT_DIR$/BlendLivrary/BlendLivrary.iml" />
     </modules>
   </component>
 </project>
