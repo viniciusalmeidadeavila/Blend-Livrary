@@ -12,13 +12,25 @@ public class LivroRepository {
 
     // CREATE (Cadastrar)
     public void adicionar(Livro livro) {
-        String sql = "INSERT INTO livros (titulo, autor) VALUES (?, ?)";
+        // Ajustado para a tabela 'Livro' e a coluna 'tipo'
+        String sql = "INSERT INTO Livro (titulo, autor, tipo) VALUES (?, ?, ?)";
 
         try (Connection con = ConexaoBanco.conectar();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
             stmt.setString(1, livro.getTitulo());
             stmt.setString(2, livro.getAutor());
+
+            // Descobre qual é a classe filha e salva no ENUM correspondente
+            if (livro instanceof models.LivroFisico) {
+                stmt.setString(3, "FISICO");
+            } else if (livro instanceof models.LivroDigital) {
+                stmt.setString(3, "DIGITAL");
+            } else {
+                System.err.println("Tipo não suportado pelo banco!");
+                return; // Cancela a operação se não for físico nem digital
+            }
+
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -29,14 +41,23 @@ public class LivroRepository {
     // READ (Buscar todos)
     public List<Livro> buscarTodos() {
         List<Livro> livros = new ArrayList<>();
-        String sql = "SELECT * FROM livros";
+        String sql = "SELECT * FROM Livro"; // Tabela ajustada
 
         try (Connection con = ConexaoBanco.conectar();
              PreparedStatement stmt = con.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                Livro livro = new Livro();
+                Livro livro;
+                String tipo = rs.getString("tipo");
+
+                // Recria o objeto correto baseado no ENUM do banco
+                if ("FISICO".equals(tipo)) {
+                    livro = new models.LivroFisico();
+                } else {
+                    livro = new models.LivroDigital();
+                }
+
                 livro.setId(rs.getInt("id"));
                 livro.setTitulo(rs.getString("titulo"));
                 livro.setAutor(rs.getString("autor"));
@@ -50,7 +71,7 @@ public class LivroRepository {
 
     // UPDATE (Atualizar)
     public void atualizar(Livro livro) {
-        String sql = "UPDATE livros SET titulo = ?, autor = ? WHERE id = ?";
+        String sql = "UPDATE Livro SET titulo = ?, autor = ? WHERE id = ?"; // Tabela ajustada
 
         try (Connection con = ConexaoBanco.conectar();
              PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -67,7 +88,7 @@ public class LivroRepository {
 
     // DELETE (Deletar)
     public void deletar(int id) {
-        String sql = "DELETE FROM livros WHERE id = ?";
+        String sql = "DELETE FROM Livro WHERE id = ?"; // Tabela ajustada
 
         try (Connection con = ConexaoBanco.conectar();
              PreparedStatement stmt = con.prepareStatement(sql)) {
